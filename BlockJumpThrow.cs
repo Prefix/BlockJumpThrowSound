@@ -13,7 +13,7 @@ public class BlockJumpThrow : BasePlugin
     public override string ModuleAuthor => "AuthorName";
     public override string ModuleVersion => "0.0.1";
     //BaseGrenade.JumpThrow: 2690897052
-    const uint Weapons_BaseGrenade_JumpThrow = 2323025056;
+    const uint Weapons_BaseGrenade_JumpThrow = 3049902652;
 
     public override void Load(bool hotReload)
     {
@@ -27,16 +27,15 @@ public class BlockJumpThrow : BasePlugin
             }
             var soundevent = um.ReadUInt("soundevent_hash");
             var entityIndex = um.ReadInt("source_entity_index");
-            var entity = Utilities.GetEntityFromIndex<CBaseEntity>(entityIndex);
-            if (entity == null || !entity.IsValid)
-            {
-                return HookResult.Continue;
-            }
             if (soundevent == Weapons_BaseGrenade_JumpThrow)
             {
+                //Console.WriteLine("Blocked JumpThrow");
                 um.Recipients.Clear();
                 return HookResult.Stop;
             }
+            /* else {
+                Console.WriteLine($"SoundEvent: {soundevent} EntityIndex: {entityIndex}");
+            }*/
             return HookResult.Continue;
 
         }, HookMode.Pre);
